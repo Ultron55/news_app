@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import dagger.hilt.android.AndroidEntryPoint
@@ -39,13 +40,12 @@ class SavedNewsFragment : Fragment()  {
         adapter = NewsAdapter(false) {
 
         }
-        binding.root.adapter = adapter
+        binding.savedNewsRv.adapter = adapter
     }
 
     private fun initObservers() {
-        viewModel.savedNews.observe(viewLifecycleOwner) {
-            adapter.update(it)
-        }
+        viewModel.savedNews.observe(viewLifecycleOwner) { adapter.update(it) }
+        viewModel.isLoading.observe(viewLifecycleOwner) { binding.loader.root.isVisible = it }
     }
 
     override fun onResume() {

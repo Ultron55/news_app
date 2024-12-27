@@ -1,126 +1,146 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:padding="8dp">
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/search_til"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/search_et"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:hint="@string/search"
-            android:padding="12dp"
-            android:imeOptions="actionDone"
-            android:textSize="14sp"/>
-
-    </com.google.android.material.textfield.TextInputLayout>
-
+    android:layout_height="match_parent">
 
     <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:layout_marginVertical="16dp"
-        android:orientation="horizontal">
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="8dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent">
 
-        <TextView
-            android:id="@+id/from_date_tv"
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/search_til"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/search_et"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:hint="@string/search"
+                android:padding="12dp"
+                android:imeOptions="actionDone"
+                android:textSize="14sp"/>
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:gravity="center"
-            android:paddingHorizontal="8dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:layout_editor_absoluteX="48dp"
-            tools:text="2024.12.01" />
+            android:layout_marginTop="16dp"
+            android:layout_marginVertical="16dp"
+            android:orientation="horizontal">
 
-        <View
-            android:id="@+id/date_divider_v"
-            android:layout_width="8dp"
-            android:layout_height="2dp"
-            android:layout_gravity="center"
-            android:background="?attr/colorAccent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toEndOf="@id/from_date_tv"
-            app:layout_constraintTop_toTopOf="parent" />
+            <TextView
+                android:id="@+id/from_date_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:paddingHorizontal="8dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:layout_editor_absoluteX="48dp"
+                tools:text="2024.12.01" />
+
+            <View
+                android:id="@+id/date_divider_v"
+                android:layout_width="8dp"
+                android:layout_height="2dp"
+                android:layout_gravity="center"
+                android:background="?attr/colorAccent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@id/from_date_tv"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/to_date_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:paddingHorizontal="8dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@id/date_divider_v"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="2024.12.26" />
+
+        </LinearLayout>
+
+        <RadioGroup
+            android:id="@+id/sort_by_rg"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:id="@+id/published_at_rb"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginHorizontal="4dp"
+                android:button="@drawable/radio_btn"
+                android:checked="true"
+                android:text="@string/publishedAt"
+                android:textSize="12sp" />
+
+            <RadioButton
+                android:id="@+id/relevancy_rb"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginHorizontal="4dp"
+                android:text="@string/relevancy"
+                android:textSize="12sp" />
+
+            <RadioButton
+                android:id="@+id/popularity_rb"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginHorizontal="4dp"
+                android:text="@string/popularity"
+                android:textSize="12sp"/>
+        </RadioGroup>
 
         <TextView
-            android:id="@+id/to_date_tv"
-            android:layout_width="wrap_content"
+            android:id="@+id/search_btn"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/background_round"
             android:gravity="center"
-            android:paddingHorizontal="8dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toEndOf="@id/date_divider_v"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:text="2024.12.26" />
+            android:padding="8dp"
+            android:text="@string/search"
+            android:textAllCaps="true"
+            android:textColor="?attr/colorPrimary"
+            android:textSize="18sp"
+            app:icon="@android:drawable/ic_menu_search" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/news_rv"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginVertical="16dp"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            tools:listitem="@layout/item_news"/>
 
     </LinearLayout>
 
-    <RadioGroup
-        android:id="@+id/sort_by_rg"
-        android:layout_width="match_parent"
+    <include
+        android:id="@+id/loader"
+        layout="@layout/loader"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-        <RadioButton
-            android:id="@+id/published_at_rb"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:layout_marginHorizontal="4dp"
-            android:button="@drawable/radio_btn"
-            android:checked="true"
-            android:text="@string/publishedAt"
-            android:textSize="12sp" />
-
-        <RadioButton
-            android:id="@+id/relevancy_rb"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:layout_marginHorizontal="4dp"
-            android:text="@string/relevancy"
-            android:textSize="12sp" />
-
-        <RadioButton
-            android:id="@+id/popularity_rb"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:layout_marginHorizontal="4dp"
-            android:text="@string/popularity"
-            android:textSize="12sp"/>
-    </RadioGroup>
-
-    <TextView
-        android:id="@+id/search_btn"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:background="@drawable/background_round"
-        android:gravity="center"
-        android:padding="8dp"
-        android:text="@string/search"
-        android:textAllCaps="true"
-        android:textColor="?attr/colorPrimary"
-        android:textSize="18sp"
-        app:icon="@android:drawable/ic_menu_search" />
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/news_rv"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginVertical="16dp"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        tools:listitem="@layout/item_news"/>
-
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -31,14 +31,17 @@ class MainViewModel @Inject constructor(
     private val newsRepositoryImpl: NewsRepositoryImpl,
     private val newsDBRepository: NewsDBRepository
 ) : ViewModel() {
+
     private val _news = MutableLiveData<List<News>>()
     val news: LiveData<List<News>> = _news
     private val _savedNews = MutableLiveData<List<News>>()
     val savedNews: LiveData<List<News>> = _savedNews
     val everythingNewsRequest = EverythingNewsRequest("")
+    val isLoading = MutableLiveData<Boolean>()
 
     fun getEverythingNews() {
         val logTag = "getEverythingNews"
+        isLoading.postValue(true)
         viewModelScope.launch(Dispatchers.IO) {
             GetEverythingUseCase(newsRepositoryImpl).invoke(everythingNewsRequest)
                 .onFailure {
@@ -56,23 +59,29 @@ class MainViewModel @Inject constructor(
                         is ApiError -> Log.d(logTag, "ApiError")
                         is UnknownError -> Log.d(logTag, "UnknownError")
                     }
+                    isLoading.postValue(false)
                 }.onSuccess {
                     Log.d(logTag, it.toString())
                     Log.d(logTag, "is null ${it.articles.isNullOrEmpty()}")
                     _news.postValue(News.fromList(it.articles))
+                    isLoading.postValue(false)
                 }
         }
     }
 
     fun saveNews(newsList: List<News>) {
+        isLoading.postValue(true)
         viewModelScope.launch(Dispatchers.IO) {
             newsDBRepository.saveNews(newsList)
+            isLoading.postValue(false)
         }
     }
 
     fun getSavedNews() {
+        isLoading.postValue(true)
         viewModelScope.launch(Dispatchers.IO) {
             _savedNews.postValue(newsDBRepository.getNewsList())
+            isLoading.postValue(false)
         }
 
     }
