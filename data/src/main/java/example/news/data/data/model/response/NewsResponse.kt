@@ -1,4 +1,4 @@
-package example.news.data.model.response
+package example.news.data.data.model.response
 
 data class NewsResponse(
     val status : String,

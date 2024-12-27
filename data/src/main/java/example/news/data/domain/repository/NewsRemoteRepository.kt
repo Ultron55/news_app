@@ -1,9 +1,10 @@
 package example.news.data.domain.repository
 
-import example.news.data.model.response.NewsResponse
+import example.news.data.data.model.response.NewsResponse
 import kotlinx.coroutines.flow.Flow
 
-interface NewsRepository : BaseRepository {
+interface NewsRemoteRepository : BaseRepository {
+
     suspend fun getEverythingNews(
         q : String,
         searchIn : String?,
@@ -12,6 +13,7 @@ interface NewsRepository : BaseRepository {
         language : String?,
         sortBy : String?,
     ): Flow<NewsResponse>
+
     suspend fun getTopHeadlinesNews(
         q : String,
         country: String?,

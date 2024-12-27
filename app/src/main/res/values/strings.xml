@@ -14,4 +14,6 @@
     <string name="relevancy">relevancy</string>
     <string name="popularity">popularity</string>
     <string name="publishedAt">publishedAt</string>
+
+    <string name="open">Open</string>
 </resources>

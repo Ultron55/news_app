@@ -1,4 +1,4 @@
-package example.news.data.model.request
+package example.news.data.data.model.request
 
 data class TopHeadlinesNewsRequest(
     val searchRequest: String,

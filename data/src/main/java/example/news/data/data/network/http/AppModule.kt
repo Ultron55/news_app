@@ -1,11 +1,11 @@
-package example.news.data.network.http
+package example.news.data.data.network.http
 
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import example.news.data.BuildConfig
-import example.news.data.network.api.NewsApi
+import example.news.data.data.network.api.NewsApi
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit

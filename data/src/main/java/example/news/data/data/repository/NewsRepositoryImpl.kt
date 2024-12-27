@@ -1,10 +1,10 @@
-package example.news.data.repository
+package example.news.data.data.repository
 
-import example.news.data.domain.repository.NewsRepository
-import example.news.data.network.api.NewsApi
+import example.news.data.data.network.api.NewsApi
+import example.news.data.domain.repository.NewsRemoteRepository
 import javax.inject.Inject
 
-class NewsRepositoryImpl @Inject constructor(private val newsApi: NewsApi) : NewsRepository {
+class NewsRepositoryImpl @Inject constructor(private val newsApi: NewsApi) : NewsRemoteRepository {
 
     override suspend fun getEverythingNews(
         q : String,
@@ -20,6 +20,5 @@ class NewsRepositoryImpl @Inject constructor(private val newsApi: NewsApi) : New
         country: String?,
         category: String?,
         sources: String?,
-    ) =
-        wrapRequest { newsApi.getTopHeadlinesNews(q, country, category, sources) }
+    ) = wrapRequest { newsApi.getTopHeadlinesNews(q, country, category, sources) }
 }

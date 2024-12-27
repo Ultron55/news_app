@@ -1,6 +1,6 @@
-package example.news.data.network.api
+package example.news.data.data.network.api
 
-import example.news.data.model.response.NewsResponse
+import example.news.data.data.model.response.NewsResponse
 import retrofit2.http.GET
 import retrofit2.http.Query
 

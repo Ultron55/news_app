@@ -6,31 +6,35 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
+import example.news.app.room.NewsDBRepository
 import example.news.data.domain.model.News
 import example.news.data.domain.usecase.GetEverythingUseCase
-import example.news.data.errors.RequestError.ApiError
-import example.news.data.errors.RequestError.BadRequest
-import example.news.data.errors.RequestError.Forbidden
-import example.news.data.errors.RequestError.InternalServerError
-import example.news.data.errors.RequestError.NetworkError
-import example.news.data.errors.RequestError.NotFound
-import example.news.data.errors.RequestError.RateLimited
-import example.news.data.errors.RequestError.SourceDoesNotExist
-import example.news.data.errors.RequestError.SourcesTooMany
-import example.news.data.errors.RequestError.Unauthorized
-import example.news.data.errors.RequestError.UnknownError
-import example.news.data.model.request.EverythingNewsRequest
-import example.news.data.repository.NewsRepositoryImpl
+import example.news.data.data.errors.RequestError.ApiError
+import example.news.data.data.errors.RequestError.BadRequest
+import example.news.data.data.errors.RequestError.Forbidden
+import example.news.data.data.errors.RequestError.InternalServerError
+import example.news.data.data.errors.RequestError.NetworkError
+import example.news.data.data.errors.RequestError.NotFound
+import example.news.data.data.errors.RequestError.RateLimited
+import example.news.data.data.errors.RequestError.SourceDoesNotExist
+import example.news.data.data.errors.RequestError.SourcesTooMany
+import example.news.data.data.errors.RequestError.Unauthorized
+import example.news.data.data.errors.RequestError.UnknownError
+import example.news.data.data.model.request.EverythingNewsRequest
+import example.news.data.data.repository.NewsRepositoryImpl
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class MainViewModel @Inject constructor(
-    private val newsRepositoryImpl: NewsRepositoryImpl
+    private val newsRepositoryImpl: NewsRepositoryImpl,
+    private val newsDBRepository: NewsDBRepository
 ) : ViewModel() {
     private val _news = MutableLiveData<List<News>>()
     val news: LiveData<List<News>> = _news
+    private val _savedNews = MutableLiveData<List<News>>()
+    val savedNews: LiveData<List<News>> = _savedNews
     val everythingNewsRequest = EverythingNewsRequest("")
 
     fun getEverythingNews() {
@@ -59,4 +63,18 @@ class MainViewModel @Inject constructor(
                 }
         }
     }
+
+    fun saveNews(newsList: List<News>) {
+        viewModelScope.launch(Dispatchers.IO) {
+            newsDBRepository.saveNews(newsList)
+        }
+    }
+
+    fun getSavedNews() {
+        viewModelScope.launch(Dispatchers.IO) {
+            _savedNews.postValue(newsDBRepository.getNewsList())
+        }
+
+    }
+
 }

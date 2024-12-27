@@ -11,9 +11,9 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import dagger.hilt.android.AndroidEntryPoint
 import example.news.app.databinding.FragmentOnlineNewsBinding
+import example.news.app.ui.adapter.NewsAdapter
 import example.news.app.ui.main.MainViewModel
-import example.news.app.ui.online.adapter.NewsAdapter
-import example.news.data.model.request.EverythingNewsRequest
+import example.news.data.data.model.request.EverythingNewsRequest
 import java.util.Calendar
 
 @AndroidEntryPoint
@@ -34,7 +34,7 @@ class OnlineNewsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        adapter = NewsAdapter()
+        adapter = NewsAdapter (true) { viewModel.saveNews(listOf(it)) }
         binding.newsRv.adapter = adapter
         initUI()
         initObservers()

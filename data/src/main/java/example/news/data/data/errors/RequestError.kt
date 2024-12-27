@@ -1,4 +1,4 @@
-package example.news.data.errors
+package example.news.data.data.errors
 
 import java.io.IOException
 

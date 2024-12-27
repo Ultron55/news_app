@@ -83,5 +83,39 @@
                 tools:srcCompat="@drawable/image_placeholder" />
 
         </LinearLayout>
+
+        <TextView
+            android:id="@+id/save_tv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="16dp"
+            android:background="@drawable/background_round"
+            android:gravity="center"
+            android:padding="16dp"
+            android:text="@string/save"
+            android:textAlignment="center"
+            android:textAllCaps="true"
+            android:textColor="?attr/colorPrimary"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:drawableEndCompat="@android:drawable/ic_menu_save"
+            app:drawableStartCompat="@android:drawable/ic_menu_save" />
+
+        <TextView
+            android:id="@+id/open_tv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="16dp"
+            android:background="@drawable/background_round"
+            android:gravity="center"
+            android:padding="16dp"
+            android:text="@string/open"
+            android:visibility="gone"
+            android:textAlignment="center"
+            android:textAllCaps="true"
+            android:textColor="?attr/colorPrimary"
+            android:textSize="20sp"
+            android:textStyle="bold"/>
+
     </LinearLayout>
 </androidx.cardview.widget.CardView>

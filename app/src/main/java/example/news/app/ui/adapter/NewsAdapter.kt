@@ -1,15 +1,19 @@
-package example.news.app.ui.online.adapter
+package example.news.app.ui.adapter
 
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import example.news.app.R
 import example.news.app.databinding.ItemNewsBinding
 import example.news.data.domain.model.News
 
-class NewsAdapter : RecyclerView.Adapter<NewsAdapter.NewsViewHolder>() {
+class NewsAdapter(
+    private val isOnline : Boolean,
+    val onClick : (News) -> Unit
+) : RecyclerView.Adapter<NewsAdapter.NewsViewHolder>() {
     private val news = mutableListOf<News>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = NewsViewHolder(
@@ -21,7 +25,6 @@ class NewsAdapter : RecyclerView.Adapter<NewsAdapter.NewsViewHolder>() {
     override fun onBindViewHolder(holder: NewsViewHolder, position: Int) {
         val news = news[position]
         holder.binding.titleTv.text = news.title
-        holder.binding.authorNameTv.text = news.author
         holder.binding.url.text = news.url
         holder.binding.timeTv.text = news.publishedAt
         Glide
@@ -30,6 +33,19 @@ class NewsAdapter : RecyclerView.Adapter<NewsAdapter.NewsViewHolder>() {
             .fitCenter()
             .placeholder(R.drawable.image_placeholder)
             .into(holder.binding.previewImv)
+        if (isOnline) {
+            holder.binding.saveTv.let {
+                it.setOnClickListener { onClick(news) }
+                it.isVisible = true
+                holder.binding.openTv.isVisible = false
+            }
+        } else {
+            holder.binding.openTv.let {
+                it.setOnClickListener { onClick(news) }
+                it.isVisible = true
+                holder.binding.saveTv.isVisible = false
+            }
+        }
     }
 
     @SuppressLint("NotifyDataSetChanged")
