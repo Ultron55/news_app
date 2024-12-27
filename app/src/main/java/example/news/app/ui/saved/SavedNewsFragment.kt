@@ -8,6 +8,7 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import dagger.hilt.android.AndroidEntryPoint
+import example.news.app.R
 import example.news.app.databinding.FragmentSavedNewsBinding
 import example.news.app.ui.adapter.NewsAdapter
 import example.news.app.ui.main.MainViewModel
@@ -38,6 +39,11 @@ class SavedNewsFragment : Fragment()  {
 
     private fun initUI() {
         adapter = NewsAdapter(false) {
+            val savedNewsContentFragment = SavedNewsContentFragment(it)
+            requireParentFragment().parentFragmentManager.beginTransaction()
+                .replace(R.id.main_activity_container, savedNewsContentFragment)
+                .addToBackStack(null)
+                .commit()
 
         }
         binding.savedNewsRv.adapter = adapter

@@ -1,72 +1,77 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="12dp">
-
-    <TextView
-        android:id="@+id/title_tv"
-        android:layout_width="0dp"
+    
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:textSize="16sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:text="The headline or title of the article. " />
+        android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/author_label_tv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:text="@string/author"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/title_tv" />
+        <TextView
+            android:id="@+id/title_tv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            tools:text="The headline or title of the article. " />
 
-    <TextView
-        android:id="@+id/author_name_tv"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="8dp"
-        app:layout_constraintBottom_toBottomOf="@id/author_label_tv"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/author_label_tv"
-        app:layout_constraintTop_toTopOf="@+id/author_label_tv"
-        tools:text="@string/author" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="8dp">
 
-    <TextView
-        android:id="@+id/time_tv"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/author_name_tv"
-        tools:text="2024-12-26 23:48:48" />
+            <TextView
+                android:id="@+id/author_label_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/author" />
 
-    <TextView
-        android:id="@+id/description_tv"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/time_tv"
-        tools:text="When you really probe venture capitalists about investing in AI startups, they'll tell you that businesses are experimenting wildly but are very slow to" />
+            <TextView
+                android:id="@+id/author_name_tv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="8dp"
+                tools:text="@string/author" />
+        </LinearLayout>
 
-    <ImageView
-        android:id="@+id/preview_imv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:adjustViewBounds="true"
-        android:importantForAccessibility="no"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/description_tv"
-        tools:srcCompat="@drawable/image_placeholder" />
+        <TextView
+            android:id="@+id/time_tv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            tools:text="2024-12-26 23:48:48" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <TextView
+            android:id="@+id/description_tv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="8dp"
+            tools:text="When you really probe venture capitalists about investing in AI startups, they'll tell you that businesses are experimenting wildly but are very slow to" />
+
+        <TextView
+            android:id="@+id/url"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:text="https://techcrunch.com/2024/12/26/ai-sdr-startups-are-booming-so-why-are-vcs-wary/"
+            android:layout_marginVertical="8dp"
+            android:autoLink="web"
+            android:textColorLink="@color/blue"
+            />
+
+        <ImageView
+            android:id="@+id/preview_imv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:adjustViewBounds="true"
+            android:importantForAccessibility="no"
+            tools:srcCompat="@drawable/image_placeholder" />
+    </LinearLayout>
+
+
+</ScrollView>
