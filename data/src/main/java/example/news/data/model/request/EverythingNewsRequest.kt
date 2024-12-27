@@ -16,7 +16,7 @@ class EverythingNewsRequest (
         val languages = listOf(
             "ar", "de", "en", "es", "fr", "he", "it", "nl", "no", "pt", "ru", "se", "ud", "zh"
         )
-        val sortBy = listOf("relevancy", "popularity", "publishedAt")
+        val sortBy = listOf("publishedAt", "relevancy", "popularity")
         val dateTimeFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss")
         val dateFormat = SimpleDateFormat("yyyy-MM-dd")
     }

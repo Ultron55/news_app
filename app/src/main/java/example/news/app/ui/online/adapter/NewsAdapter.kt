@@ -22,8 +22,8 @@ class NewsAdapter : RecyclerView.Adapter<NewsAdapter.NewsViewHolder>() {
         val news = news[position]
         holder.binding.titleTv.text = news.title
         holder.binding.authorNameTv.text = news.author
-        holder.binding.timeTv.text = news.sourceName
         holder.binding.url.text = news.url
+        holder.binding.timeTv.text = news.publishedAt
         Glide
             .with(holder.binding.root.context)
             .load(news.imageUrl)

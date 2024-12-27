@@ -1,6 +1,5 @@
 package example.news.data.domain.model
 
-import android.util.Log
 import example.news.data.model.response.Articles
 
 data class News(
@@ -10,6 +9,7 @@ data class News(
     val description : String?,
     val url : String?,
     val imageUrl : String?,
+    val publishedAt : String?,
 ) {
     companion object {
         fun from(articles: Articles) = News(
@@ -19,6 +19,7 @@ data class News(
             articles.description,
             articles.url,
             articles.urlToImage,
+            articles.publishedAt.removeSuffix("Z").replace('T', ' ')
         )
 
         fun fromList(articles: List<Articles>?) = articles?.map { from(it) } ?: emptyList()

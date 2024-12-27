@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.core.view.get
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import dagger.hilt.android.AndroidEntryPoint
@@ -43,17 +44,31 @@ class OnlineNewsFragment : Fragment() {
     private fun initUI() {
         binding.searchEt.setText(viewModel.everythingNewsRequest.searchRequest)
         val calendar = Calendar.getInstance()
-        binding.toDateTv.text = viewModel.everythingNewsRequest.toDate ?: getDateString(calendar)
-        binding.fromDateTv.text = viewModel.everythingNewsRequest.fromDate ?: calendar.let {
-            it.add(Calendar.MONTH, -1)
-            getDateString(calendar)
+        binding.toDateTv.text = viewModel.everythingNewsRequest.toDate.let {
+            if (it.isNullOrEmpty()) getDateString(calendar) else it
         }
+        binding.fromDateTv.text = viewModel.everythingNewsRequest.fromDate.let {
+            if (it.isNullOrEmpty()) {
+                calendar.add(Calendar.MONTH, -1)
+                getDateString(calendar)
+            } else it
+        }
+        val index = viewModel.everythingNewsRequest.sortBy?.let {
+            EverythingNewsRequest.sortBy.indexOf(it) } ?: 0
+        binding.sortByRg.check(binding.sortByRg[index].id)
     }
 
     private fun initClickListener() {
         binding.fromDateTv.setOnClickListener { dataPicker(it as TextView, true)}
         binding.toDateTv.setOnClickListener { dataPicker(it as TextView, false)}
         binding.searchBtn.setOnClickListener { search() }
+        binding.sortByRg.setOnCheckedChangeListener { _, checkedId ->
+            when (checkedId) {
+                binding.publishedAtRb.id -> viewModel.everythingNewsRequest.sortBy = "publishedAt"
+                binding.relevancyRb.id -> viewModel.everythingNewsRequest.sortBy = "relevancy"
+                binding.popularityRb.id -> viewModel.everythingNewsRequest.sortBy = "popularity"
+            }
+        }
     }
 
     private fun dataPicker(textView: TextView, isFrom: Boolean) {

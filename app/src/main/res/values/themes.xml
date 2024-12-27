@@ -8,8 +8,9 @@
         <item name="colorAccent">@color/orange</item>
         <item name="colorSurface">@color/yellow_half</item>
         <item name="colorOnSurface">@color/orange_half</item>
-        <item name="textInputStyle">@style/Base.Theme.NewsApp.TextInputLayout.OutlinedBox</item>
         <item name="android:windowLightStatusBar">true</item>
+        <item name="textInputStyle">@style/Base.Theme.NewsApp.TextInputLayout.OutlinedBox</item>
+        <item name="radioButtonStyle">@style/Base.Theme.NewsApp.RadioButton</item>
     </style>
 
     <style name="Theme.NewsApp" parent="Base.Theme.NewsApp" />
@@ -21,5 +22,12 @@
         <item name="background">@android:color/transparent</item>
         <item name="hintTextColor">?attr/colorAccent</item>
         <item name="cursorColor">?attr/colorAccent</item>
+    </style>
+
+    <style name="Base.Theme.NewsApp.RadioButton" parent="Widget.MaterialComponents.CompoundButton.RadioButton">
+        <item name="android:textColor">?attr/colorAccent</item>
+        <item name="buttonCompat">@drawable/radio_btn</item>
+        <item name="android:paddingLeft">4dp</item>
+        <item name="android:gravity">center_vertical</item>
     </style>
 </resources>

@@ -2,6 +2,7 @@
     <string name="app_name">NewsApp</string>
     <string name="news">News</string>
     <string name="saved">Saved</string>
+
     <string name="search">Search</string>
     <string name="time">Time</string>
     <string name="sort_by">Sort by</string>
@@ -9,4 +10,8 @@
     <string name="language">language</string>
     <string name="save">Save</string>
     <string name="author">Author</string>
+
+    <string name="relevancy">relevancy</string>
+    <string name="popularity">popularity</string>
+    <string name="publishedAt">publishedAt</string>
 </resources>

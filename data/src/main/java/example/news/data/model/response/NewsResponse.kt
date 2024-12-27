@@ -15,6 +15,7 @@ data class Articles(
     val description : String,
     val url : String,
     val urlToImage : String,
+    val publishedAt : String
 )
 
 data class Source(
