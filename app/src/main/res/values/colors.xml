@@ -4,8 +4,12 @@
     <color name="black_violet">#1E1E20</color>
     <color name="dark_gray_violet">#434349</color>
     <color name="white">#FFFFFFFF</color>
-    <color name="light_orange">#FDFCF9</color>
-    <color name="gray2">#80928F8A</color>
-    <color name="gray">#EDEDE1</color>
-    <color name="orange">#F65321</color>
+    <color name="light_orange">#FFF6ED</color>
+    <color name="gray_half">#BCEDEDE1</color>
+    <color name="yellow_half">#6AFFF200</color>
+    <color name="orange">#F67621</color>
+    <color name="orange_half">#8BF65321</color>
+    <color name="red">#FF0000</color>
+    <color name="violet">#391E44</color>
+    <color name="blue">#3D71FB</color>
 </resources>

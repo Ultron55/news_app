@@ -6,10 +6,12 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.google.android.material.tabs.TabLayoutMediator
+import dagger.hilt.android.AndroidEntryPoint
 import example.news.app.R
 import example.news.app.databinding.FragmentMainBinding
 import example.news.app.ui.main.adapter.TabsPagerAdapter
 
+@AndroidEntryPoint
 class MainFragment : Fragment() {
 
     private var _binding : FragmentMainBinding? = null

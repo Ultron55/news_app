@@ -4,8 +4,11 @@
         <item name="colorPrimary">@color/black_violet</item>
         <item name="android:windowBackground">@color/black_violet</item>
         <item name="android:statusBarColor">@color/black_violet</item>
-        <item name="colorAccent">@color/gray</item>
-        <item name="colorOnSurface">@color/gray2</item>
+        <item name="android:textColor">@color/orange</item>
+        <item name="colorAccent">@color/orange</item>
+        <item name="colorSurface">@color/violet</item>
+        <item name="colorOnSurface">@color/orange_half</item>
         <item name="android:windowLightStatusBar">false</item>
+        <item name="textInputStyle">@style/Base.Theme.NewsApp.TextInputLayout.OutlinedBox</item>
     </style>
 </resources>

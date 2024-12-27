@@ -4,11 +4,22 @@
         <item name="colorPrimary">@color/light_orange</item>
         <item name="colorPrimaryVariant">@color/white</item>
         <item name="android:windowBackground">@color/light_orange</item>
-        <item name="android:textColor">@color/black_violet</item>
-        <item name="colorAccent">@color/black_violet</item>
-        <item name="colorOnSurface">@color/gray2</item>
+        <item name="android:textColor">@color/orange</item>
+        <item name="colorAccent">@color/orange</item>
+        <item name="colorSurface">@color/yellow_half</item>
+        <item name="colorOnSurface">@color/orange_half</item>
+        <item name="textInputStyle">@style/Base.Theme.NewsApp.TextInputLayout.OutlinedBox</item>
         <item name="android:windowLightStatusBar">true</item>
     </style>
 
     <style name="Theme.NewsApp" parent="Base.Theme.NewsApp" />
+
+    <style name="Base.Theme.NewsApp.TextInputLayout.OutlinedBox"
+        parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        <item name="boxBackgroundColor">@android:color/transparent</item>
+        <item name="boxStrokeColor">@color/text_input_layout_box_stroke_color</item>
+        <item name="background">@android:color/transparent</item>
+        <item name="hintTextColor">?attr/colorAccent</item>
+        <item name="cursorColor">?attr/colorAccent</item>
+    </style>
 </resources>

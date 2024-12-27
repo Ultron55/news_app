@@ -12,9 +12,15 @@ class GetEverythingUseCase(private val repository: NewsRepositoryImpl) {
     suspend operator fun invoke(request: EverythingNewsRequest): Result<NewsResponse> {
 
         if (request.searchRequest.isBlank()) return Result.failure(RequestError.EmptySearchQuery)
-        val (q, searchIn, fromDate, toDate, language, sortBy) = request
         return runCatching {
-            repository.getEverythingNews(q, searchIn, fromDate, toDate, language, sortBy)
+            repository.getEverythingNews(
+                request.searchRequest,
+                request.searchIn,
+                request.fromDate,
+                request.toDate,
+                request.language,
+                request.sortBy,
+            )
                 .catch { cause -> throw RequestError.errorHandler(cause) }
                 .firstOrNull() ?: throw RequestError.UnknownError(
                 "No data received from repository"

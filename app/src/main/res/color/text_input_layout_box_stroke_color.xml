@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <!-- Цвет границы в состоянии фокуса -->
+    <item android:color="?attr/colorAccent" android:state_focused="true" />
+    <!-- Цвет границы в состоянии ошибки -->
+    <item android:color="@color/red" app:state_error="true" />
+    <!-- Цвет границы в состоянии без фокуса -->
+    <item android:color="?attr/colorOnSurface" />
+</selector>

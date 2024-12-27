@@ -2,13 +2,13 @@ package example.news.data.model.request
 
 import java.text.SimpleDateFormat
 
-data class EverythingNewsRequest (
-    val searchRequest: String,
-    val searchIn: String? = null,
-    val fromDate: String? = null,
-    val toDate: String? = null,
-    val language: String? = null,
-    val sortBy: String? = null,
+class EverythingNewsRequest (
+    var searchRequest: String,
+    var searchIn: String? = null,
+    var fromDate: String? = null,
+    var toDate: String? = null,
+    var language: String? = null,
+    var sortBy: String? = null,
 ) {
     @Suppress("SimpleDateFormat")
     companion object {
@@ -18,6 +18,6 @@ data class EverythingNewsRequest (
         )
         val sortBy = listOf("relevancy", "popularity", "publishedAt")
         val dateTimeFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss")
-        val dateFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss")
+        val dateFormat = SimpleDateFormat("yyyy-MM-dd")
     }
 }
