@@ -16,4 +16,6 @@
     <string name="publishedAt">publishedAt</string>
 
     <string name="open">Open</string>
+
+    <string name="query_is_empty">Query is empty</string>
 </resources>

@@ -6,11 +6,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import androidx.core.view.get
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import dagger.hilt.android.AndroidEntryPoint
+import example.news.app.R
 import example.news.app.databinding.FragmentOnlineNewsBinding
 import example.news.app.ui.adapter.NewsAdapter
 import example.news.app.ui.main.MainViewModel
@@ -54,9 +54,14 @@ class OnlineNewsFragment : Fragment() {
                 getDateString(calendar)
             } else it
         }
-        val index = viewModel.everythingNewsRequest.sortBy?.let {
-            EverythingNewsRequest.sortBy.indexOf(it) } ?: 0
-        binding.sortByRg.check(binding.sortByRg[index].id)
+        binding.sortByRg.check(
+            when (viewModel.everythingNewsRequest.sortBy) {
+                EverythingNewsRequest.SortBy.PublishedAt -> binding.publishedAtRb.id
+                EverythingNewsRequest.SortBy.Relevancy -> binding.relevancyRb.id
+                EverythingNewsRequest.SortBy.Popularity -> binding.popularityRb.id
+                else -> binding.publishedAtRb.id
+            }
+        )
     }
 
     private fun initClickListener() {
@@ -64,10 +69,11 @@ class OnlineNewsFragment : Fragment() {
         binding.toDateTv.setOnClickListener { dataPicker(it as TextView, false)}
         binding.searchBtn.setOnClickListener { search() }
         binding.sortByRg.setOnCheckedChangeListener { _, checkedId ->
-            when (checkedId) {
-                binding.publishedAtRb.id -> viewModel.everythingNewsRequest.sortBy = "publishedAt"
-                binding.relevancyRb.id -> viewModel.everythingNewsRequest.sortBy = "relevancy"
-                binding.popularityRb.id -> viewModel.everythingNewsRequest.sortBy = "popularity"
+            viewModel.everythingNewsRequest.sortBy = when (checkedId) {
+                binding.publishedAtRb.id -> EverythingNewsRequest.SortBy.PublishedAt
+                binding.relevancyRb.id -> EverythingNewsRequest.SortBy.Relevancy
+                binding.popularityRb.id -> EverythingNewsRequest.SortBy.Popularity
+                else -> EverythingNewsRequest.SortBy.PublishedAt
             }
         }
     }
@@ -95,7 +101,7 @@ class OnlineNewsFragment : Fragment() {
     private fun search() {
         val query = binding.searchEt.text.toString()
         binding.searchTil.error =
-            if (query.isEmpty()) "Query is empty".also { return } else null
+            if (query.isEmpty()) getString(R.string.query_is_empty).also { return } else null
         viewModel.everythingNewsRequest.searchRequest = query
         viewModel.getEverythingNews()
     }
@@ -109,5 +115,4 @@ class OnlineNewsFragment : Fragment() {
         super.onDestroyView()
         _binding = null
     }
-
 }

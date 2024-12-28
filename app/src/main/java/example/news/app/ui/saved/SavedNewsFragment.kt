@@ -39,12 +39,10 @@ class SavedNewsFragment : Fragment()  {
 
     private fun initUI() {
         adapter = NewsAdapter(false) {
-            val savedNewsContentFragment = SavedNewsContentFragment(it)
             requireParentFragment().parentFragmentManager.beginTransaction()
-                .replace(R.id.main_activity_container, savedNewsContentFragment)
+                .replace(R.id.main_activity_container, SavedNewsContentFragment(it))
                 .addToBackStack(null)
                 .commit()
-
         }
         binding.savedNewsRv.adapter = adapter
     }

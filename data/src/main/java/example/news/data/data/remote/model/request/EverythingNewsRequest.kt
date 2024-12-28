@@ -8,15 +8,20 @@ class EverythingNewsRequest (
     var fromDate: String? = null,
     var toDate: String? = null,
     var language: String? = null,
-    var sortBy: String? = null,
+    var sortBy: SortBy? = null,
 ) {
+    sealed class SortBy(val name: String) {
+        data object PublishedAt : SortBy("publishedAt")
+        data object Relevancy : SortBy("relevancy")
+        data object Popularity : SortBy("popularity")
+    }
+
     @Suppress("SimpleDateFormat")
     companion object {
         val searchIn = listOf("title", "description", "content")
         val languages = listOf(
             "ar", "de", "en", "es", "fr", "he", "it", "nl", "no", "pt", "ru", "se", "ud", "zh"
         )
-        val sortBy = listOf("publishedAt", "relevancy", "popularity")
         val dateTimeFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss")
         val dateFormat = SimpleDateFormat("yyyy-MM-dd")
     }

@@ -19,7 +19,7 @@ class GetEverythingUseCase(private val repository: NewsRepositoryImpl) {
                 request.fromDate,
                 request.toDate,
                 request.language,
-                request.sortBy,
+                request.sortBy?.name,
             )
                 .catch { cause -> throw RequestError.errorHandler(cause) }
                 .firstOrNull() ?: throw RequestError.UnknownError(
