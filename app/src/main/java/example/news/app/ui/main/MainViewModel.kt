@@ -16,6 +16,7 @@ import example.news.data.data.remote.errors.RequestError.Forbidden
 import example.news.data.data.remote.errors.RequestError.InternalServerError
 import example.news.data.data.remote.errors.RequestError.NetworkError
 import example.news.data.data.remote.errors.RequestError.NotFound
+import example.news.data.data.remote.errors.RequestError.ParameterInvalid
 import example.news.data.data.remote.errors.RequestError.RateLimited
 import example.news.data.data.remote.errors.RequestError.SourceDoesNotExist
 import example.news.data.data.remote.errors.RequestError.SourcesTooMany
@@ -24,6 +25,7 @@ import example.news.data.data.remote.errors.RequestError.UnknownError
 import example.news.data.data.remote.model.request.EverythingNewsRequest
 import example.news.data.data.remote.repository.NewsRepositoryImpl
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -39,21 +41,21 @@ class MainViewModel @Inject constructor(
     val savedNews: LiveData<List<News>> = _savedNews
     val everythingNewsRequest = EverythingNewsRequest("")
     val isLoading = MutableLiveData<Boolean>()
-    val errorMessages = MutableLiveData<String>()
+    val errorMessages = MutableLiveData<String?>()
 
     fun getEverythingNews() {
         val logTag = "getEverythingNews"
         isLoading.postValue(true)
         viewModelScope.launch(Dispatchers.IO) {
             GetEverythingUseCase(newsRepositoryImpl).invoke(everythingNewsRequest)
-                .onFailure {
-                    Log.e(logTag, it.message.toString())
+                .catch {
                     if (it is RequestError) {
                         logRequestError(it, logTag)
                         when (it) {
                             is RateLimited -> {}
                             is SourcesTooMany -> {}
                             is SourceDoesNotExist -> {}
+                            is ParameterInvalid -> {}
                             is BadRequest -> {}
                             is Unauthorized -> {}
                             is Forbidden -> {}
@@ -64,9 +66,12 @@ class MainViewModel @Inject constructor(
                             is UnknownError -> {}
                             else -> {}
                         }
-                    } else Log.d(logTag, "UnknownError")
+                    } else {
+                        Log.e(logTag, it.message.toString())
+                        errorMessages.postValue(it.message.toString())
+                    }
                     isLoading.postValue(false)
-                }.onSuccess {
+                }.collect {
                     Log.d(logTag, it.toString())
                     Log.d(logTag, "is null ${it.articles.isNullOrEmpty()}")
                     _news.postValue(News.fromList(it.articles))
@@ -76,8 +81,8 @@ class MainViewModel @Inject constructor(
     }
 
     private fun logRequestError(error: RequestError, logTag : String) {
-        Log.d(logTag, error.getClassName())
-        errorMessages.postValue(error.message)
+        Log.e(logTag, error.getClassName())
+        errorMessages.postValue(error.message.toString())
     }
 
     fun saveNews(newsList: List<News>) {

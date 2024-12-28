@@ -24,6 +24,14 @@ sealed class RequestError(
         private fun readResolve(): Any = RateLimited
     }
 
+    class ParameterInvalid(message: String?) : RequestError(
+        message ?: "You've included a parameter in your request which is currently not"
+    ) {
+        companion object {
+            const val apiCode = "parameterInvalid"
+        }
+    }
+
     data object SourcesTooMany : RequestError(
         "Too many sources specified", apiCode = "sourcesTooMany"
     ) {
@@ -62,22 +70,25 @@ sealed class RequestError(
 
     companion object {
 
-        fun errorHandler(cause: Throwable): RequestError = when (cause) {
-            is ServerError -> when {
-                cause.apiCode == RateLimited.apiCode -> RateLimited
-                cause.apiCode == SourcesTooMany.apiCode -> SourcesTooMany
-                cause.apiCode == SourceDoesNotExist.apiCode -> SourceDoesNotExist
-                cause.code == 400 -> BadRequest(
-                    cause.errorMessage ?: "Invalid request parameters"
-                )
-                cause.code == 401 -> Unauthorized
-                cause.code == 403 -> Forbidden
-                cause.code == 404 -> NotFound
-                cause.code == 500 -> InternalServerError
-                else -> ApiError(cause.errorMessage ?: ServerError.defaultMessage)
+        fun errorHandler(cause: Throwable): RequestError {
+            return when (cause) {
+                is ServerError -> when {
+                    cause.apiCode == RateLimited.apiCode -> RateLimited
+                    cause.apiCode == SourcesTooMany.apiCode -> SourcesTooMany
+                    cause.apiCode == SourceDoesNotExist.apiCode -> SourceDoesNotExist
+                    cause.apiCode == ParameterInvalid.apiCode ->ParameterInvalid(cause.errorMessage)
+                    cause.code == 400 -> BadRequest(
+                        cause.errorMessage ?: "Invalid request parameters"
+                    )
+                    cause.code == 401 -> Unauthorized
+                    cause.code == 403 -> Forbidden
+                    cause.code == 404 -> NotFound
+                    cause.code == 500 -> InternalServerError
+                    else -> ApiError(cause.errorMessage ?: ServerError.defaultMessage)
+                }
+                is IOException -> NetworkError(cause.message ?: "Network error")
+                else -> UnknownError(cause = cause)
             }
-            is IOException -> NetworkError(cause.message ?: "Network error")
-            else -> UnknownError(cause = cause)
         }
     }
 }

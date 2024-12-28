@@ -1,6 +1,7 @@
 package example.news.app.ui.main
 
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -29,7 +30,8 @@ class MainActivity : AppCompatActivity() {
             .add(binding.mainActivityContainer.id, MainFragment())
             .commit()
         viewModel.errorMessages.observe(this) {
-            Toast.makeText(this, it, Toast.LENGTH_LONG).show()
+            Log.d("LLL", it.toString())
+            if (it != null) Toast.makeText(this, it, Toast.LENGTH_LONG).show()
         }
     }
 }

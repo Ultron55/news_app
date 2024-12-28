@@ -15,5 +15,4 @@ class TabsPagerAdapter(fragment: Fragment) : FragmentStateAdapter(fragment) {
             1 -> SavedNewsFragment()
             else -> throw IllegalArgumentException("Invalid position: $position")
         }
-
 }
