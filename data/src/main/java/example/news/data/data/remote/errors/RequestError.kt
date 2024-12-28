@@ -10,33 +10,49 @@ sealed class RequestError(
 
     fun getClassName() = this::class.simpleName.toString()
 
-    class EmptySearchQuery : RequestError("Empty search query")
-
     class ApiError(message: String, apiCode: String? = null) : RequestError(
         "API Error: $message", apiCode = apiCode
     )
 
-    class RateLimited : RequestError(
+    data object EmptySearchQuery : RequestError("Empty search query") {
+        private fun readResolve(): Any = RateLimited
+    }
+
+    data object RateLimited : RequestError(
         "Rate limit exceeded", apiCode = "rateLimited"
-    )
+    ) {
+        private fun readResolve(): Any = RateLimited
+    }
 
-    class SourcesTooMany : RequestError(
+    data object SourcesTooMany : RequestError(
         "Too many sources specified", apiCode = "sourcesTooMany"
-    )
+    ) {
+        private fun readResolve(): Any = RateLimited
+    }
 
-    class SourceDoesNotExist : RequestError(
+    data object SourceDoesNotExist : RequestError(
         "Specified source does not exist", apiCode = "sourceDoesNotExist"
-    )
+    ) {
+        private fun readResolve(): Any = RateLimited
+    }
 
     class BadRequest(message: String) : RequestError("Bad Request: $message")
 
-    class Unauthorized : RequestError("Unauthorized access")
+    data object Unauthorized : RequestError("Unauthorized access") {
+        private fun readResolve(): Any = Unauthorized
+    }
 
-    class Forbidden : RequestError("Access is forbidden")
+    data object Forbidden : RequestError("Access is forbidden") {
+        private fun readResolve(): Any = Forbidden
+    }
 
-    class NotFound : RequestError("Requested resource not found")
+    data object NotFound : RequestError("Requested resource not found") {
+        private fun readResolve(): Any = NotFound
+    }
 
-    class InternalServerError : RequestError("Internal server error")
+    data object InternalServerError : RequestError("Internal server error") {
+        private fun readResolve(): Any = InternalServerError
+    }
 
     class NetworkError(message: String) : RequestError("Network Error: $message")
 
@@ -48,16 +64,16 @@ sealed class RequestError(
 
         fun errorHandler(cause: Throwable): RequestError = when (cause) {
             is ServerError -> when {
-                cause.apiCode == "rateLimited" -> RateLimited()
-                cause.apiCode == "sourcesTooMany" -> SourcesTooMany()
-                cause.apiCode == "sourceDoesNotExist" -> SourceDoesNotExist()
+                cause.apiCode == RateLimited.apiCode -> RateLimited
+                cause.apiCode == SourcesTooMany.apiCode -> SourcesTooMany
+                cause.apiCode == SourceDoesNotExist.apiCode -> SourceDoesNotExist
                 cause.code == 400 -> BadRequest(
                     cause.errorMessage ?: "Invalid request parameters"
                 )
-                cause.code == 401 -> Unauthorized()
-                cause.code == 403 -> Forbidden()
-                cause.code == 404 -> NotFound()
-                cause.code == 500 -> InternalServerError()
+                cause.code == 401 -> Unauthorized
+                cause.code == 403 -> Forbidden
+                cause.code == 404 -> NotFound
+                cause.code == 500 -> InternalServerError
                 else -> ApiError(cause.errorMessage ?: ServerError.defaultMessage)
             }
             is IOException -> NetworkError(cause.message ?: "Network error")

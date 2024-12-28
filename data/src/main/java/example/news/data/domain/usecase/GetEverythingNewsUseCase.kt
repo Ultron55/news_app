@@ -11,7 +11,7 @@ class GetEverythingUseCase(private val repository: NewsRepositoryImpl) {
 
     suspend operator fun invoke(request: EverythingNewsRequest): Result<NewsResponse> {
 
-        if (request.searchRequest.isBlank()) return Result.failure(RequestError.EmptySearchQuery())
+        if (request.searchRequest.isBlank()) return Result.failure(RequestError.EmptySearchQuery)
         return runCatching {
             repository.getEverythingNews(
                 request.searchRequest,
