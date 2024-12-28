@@ -6,6 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
+import example.news.data.data.remote.errors.RequestError
 import example.news.data.data.room.NewsDBRepository
 import example.news.data.domain.model.News
 import example.news.data.domain.usecase.GetEverythingUseCase
@@ -38,6 +39,7 @@ class MainViewModel @Inject constructor(
     val savedNews: LiveData<List<News>> = _savedNews
     val everythingNewsRequest = EverythingNewsRequest("")
     val isLoading = MutableLiveData<Boolean>()
+    val errorMessages = MutableLiveData<String>()
 
     fun getEverythingNews() {
         val logTag = "getEverythingNews"
@@ -45,20 +47,24 @@ class MainViewModel @Inject constructor(
         viewModelScope.launch(Dispatchers.IO) {
             GetEverythingUseCase(newsRepositoryImpl).invoke(everythingNewsRequest)
                 .onFailure {
-                    Log.e("getEverythingNews", it.message.toString())
-                    when (it) {
-                        is RateLimited -> Log.d(logTag, "RateLimited")
-                        is SourcesTooMany -> Log.d(logTag, "SourcesTooMany")
-                        is SourceDoesNotExist -> Log.d(logTag, "SourceDoesNotExist")
-                        is BadRequest -> Log.d(logTag, "BadRequest")
-                        is Unauthorized -> Log.d(logTag, "Unauthorized")
-                        is Forbidden -> Log.d(logTag, "Forbidden")
-                        is NotFound -> Log.d(logTag, "NotFound")
-                        is InternalServerError -> Log.d(logTag, "InternalServerError")
-                        is NetworkError -> Log.d(logTag, "NetworkError")
-                        is ApiError -> Log.d(logTag, "ApiError")
-                        is UnknownError -> Log.d(logTag, "UnknownError")
-                    }
+                    Log.e(logTag, it.message.toString())
+                    if (it is RequestError) {
+                        logRequestError(it, logTag)
+                        when (it) {
+                            is RateLimited -> {}
+                            is SourcesTooMany -> {}
+                            is SourceDoesNotExist -> {}
+                            is BadRequest -> {}
+                            is Unauthorized -> {}
+                            is Forbidden -> {}
+                            is NotFound -> {}
+                            is InternalServerError -> {}
+                            is NetworkError -> {}
+                            is ApiError -> {}
+                            is UnknownError -> {}
+                            else -> {}
+                        }
+                    } else Log.d(logTag, "UnknownError")
                     isLoading.postValue(false)
                 }.onSuccess {
                     Log.d(logTag, it.toString())
@@ -67,6 +73,11 @@ class MainViewModel @Inject constructor(
                     isLoading.postValue(false)
                 }
         }
+    }
+
+    private fun logRequestError(error: RequestError, logTag : String) {
+        Log.d(logTag, error.getClassName())
+        errorMessages.postValue(error.message)
     }
 
     fun saveNews(newsList: List<News>) {
@@ -83,7 +94,6 @@ class MainViewModel @Inject constructor(
             _savedNews.postValue(newsDBRepository.getNewsList())
             isLoading.postValue(false)
         }
-
     }
 
 }

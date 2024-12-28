@@ -29,7 +29,7 @@ interface BaseRepository {
                 exception.response()?.errorBody()?.charStream(),
                 NewsResponse::class.java)
         }.fold(
-            { RequestError.errorHandler(ServerError(code, it.message)) },
+            { RequestError.errorHandler(ServerError(code, it.code, it.message)) },
             { exception }
         )
     }
