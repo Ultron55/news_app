@@ -7,7 +7,7 @@ plugins {
 
 android {
     namespace = "example.news.data"
-    compileSdk = 34
+    compileSdk = 35
 
     defaultConfig {
         minSdk = 29
@@ -50,6 +50,7 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
+    implementation(libs.androidx.room.testing)
 
     //Retrofit
     implementation(libs.retrofit)
