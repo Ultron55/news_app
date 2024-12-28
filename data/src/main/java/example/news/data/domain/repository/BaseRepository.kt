@@ -1,6 +1,7 @@
 package example.news.data.domain.repository
 
 import com.google.gson.Gson
+import example.news.data.data.remote.errors.RequestError
 import example.news.data.data.remote.model.response.NewsResponse
 import example.news.data.data.remote.errors.ServerError
 import kotlinx.coroutines.Dispatchers
@@ -28,13 +29,7 @@ interface BaseRepository {
                 exception.response()?.errorBody()?.charStream(),
                 NewsResponse::class.java)
         }.fold(
-            {
-                throw ServerError(
-                    code,
-                    if (it.code in ServerError.userCodes) it.message
-                    else ServerError.defaultMessage
-                )
-            },
+            { RequestError.errorHandler(ServerError(code, it.message)) },
             { exception }
         )
     }

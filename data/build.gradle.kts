@@ -50,7 +50,13 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
-    implementation(libs.androidx.room.testing)
+    androidTestImplementation(libs.androidx.room.testing)
+    androidTestImplementation(libs.kotlinx.coroutines.test)
+    androidTestImplementation(libs.androidx.core.testing)
+    androidTestImplementation(libs.okhttp3.mockwebserver)
+    androidTestImplementation(libs.turbine)
+    implementation(libs.okhttp3)
+    implementation(libs.okhttp3.okhttp.urlconnection)
 
     //Retrofit
     implementation(libs.retrofit)
@@ -59,6 +65,7 @@ dependencies {
 
     //Hilt
     implementation(libs.hilt.android)
+    androidTestImplementation(libs.androidx.core.testing)
     ksp(libs.hilt.android.compiler)
 
     //Room

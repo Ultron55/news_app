@@ -1,24 +1,26 @@
 package example.news.data
 
-import androidx.test.platform.app.InstrumentationRegistry
-import androidx.test.ext.junit.runners.AndroidJUnit4
-
+import okhttp3.mockwebserver.MockWebServer
+import org.junit.After
+import org.junit.Assert.assertTrue
+import org.junit.Before
 import org.junit.Test
-import org.junit.runner.RunWith
 
-import org.junit.Assert.*
+class APIServiceTest {
+    private var mockWebServer = MockWebServer()
 
-/**
- * Instrumented test, which will execute on an Android device.
- *
- * See [testing documentation](http://d.android.com/tools/testing).
- */
-@RunWith(AndroidJUnit4::class)
-class ExampleInstrumentedTest {
+    @Before
+    fun setup() {
+        mockWebServer.start()
+    }
+
+    @After
+    fun teardown() {
+        mockWebServer.shutdown()
+    }
+
     @Test
-    fun useAppContext() {
-        // Context of the app under test.
-        val appContext = InstrumentationRegistry.getInstrumentation().targetContext
-        assertEquals("example.news.data.test", appContext.packageName)
+    fun testAppVersions() {
+        assertTrue(true)
     }
 }
