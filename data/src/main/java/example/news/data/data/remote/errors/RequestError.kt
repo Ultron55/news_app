@@ -1,4 +1,4 @@
-package example.news.data.data.errors
+package example.news.data.data.remote.errors
 
 import java.io.IOException
 

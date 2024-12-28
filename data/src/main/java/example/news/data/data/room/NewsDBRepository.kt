@@ -1,4 +1,4 @@
-package example.news.app.room
+package example.news.data.data.room
 
 import example.news.data.domain.model.News
 import javax.inject.Inject

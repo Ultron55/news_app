@@ -1,4 +1,4 @@
-package example.news.data.data.model.request
+package example.news.data.data.remote.model.request
 
 import java.text.SimpleDateFormat
 

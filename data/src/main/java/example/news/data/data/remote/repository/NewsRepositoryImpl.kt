@@ -1,6 +1,6 @@
-package example.news.data.data.repository
+package example.news.data.data.remote.repository
 
-import example.news.data.data.network.api.NewsApi
+import example.news.data.data.remote.network.api.NewsApi
 import example.news.data.domain.repository.NewsRemoteRepository
 import javax.inject.Inject
 

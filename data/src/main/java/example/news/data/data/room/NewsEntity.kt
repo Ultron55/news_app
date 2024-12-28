@@ -1,4 +1,4 @@
-package example.news.app.room
+package example.news.data.data.room
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey

@@ -1,6 +1,6 @@
 package example.news.data.domain.model
 
-import example.news.data.data.model.response.Articles
+import example.news.data.data.remote.model.response.Articles
 
 data class News(
     val sourceName : String?,

@@ -1,4 +1,4 @@
-package example.news.data.data.network.http
+package example.news.data.data.remote.network.http
 
 import example.news.data.BuildConfig
 import okhttp3.Interceptor

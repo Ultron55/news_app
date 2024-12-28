@@ -14,7 +14,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import example.news.app.databinding.FragmentOnlineNewsBinding
 import example.news.app.ui.adapter.NewsAdapter
 import example.news.app.ui.main.MainViewModel
-import example.news.data.data.model.request.EverythingNewsRequest
+import example.news.data.data.remote.model.request.EverythingNewsRequest
 import java.util.Calendar
 
 @AndroidEntryPoint

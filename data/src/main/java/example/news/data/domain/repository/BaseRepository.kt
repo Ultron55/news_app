@@ -1,8 +1,8 @@
 package example.news.data.domain.repository
 
 import com.google.gson.Gson
-import example.news.data.data.model.response.NewsResponse
-import example.news.data.data.errors.ServerError
+import example.news.data.data.remote.model.response.NewsResponse
+import example.news.data.data.remote.errors.ServerError
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow

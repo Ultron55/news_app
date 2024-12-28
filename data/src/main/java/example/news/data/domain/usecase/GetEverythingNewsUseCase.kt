@@ -1,9 +1,9 @@
 package example.news.data.domain.usecase
 
-import example.news.data.data.errors.RequestError
-import example.news.data.data.model.request.EverythingNewsRequest
-import example.news.data.data.model.response.NewsResponse
-import example.news.data.data.repository.NewsRepositoryImpl
+import example.news.data.data.remote.errors.RequestError
+import example.news.data.data.remote.model.request.EverythingNewsRequest
+import example.news.data.data.remote.model.response.NewsResponse
+import example.news.data.data.remote.repository.NewsRepositoryImpl
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.firstOrNull
 
